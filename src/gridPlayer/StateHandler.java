@@ -3,6 +3,10 @@ package gridPlayer;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An abstract class if extended will integrate the GridPlayer into the game and give it
+ * access to the state
+ */
 public abstract class StateHandler {
 
     private StateObserver observer;

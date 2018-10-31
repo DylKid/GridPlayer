@@ -2,6 +2,9 @@ package gridPlayer;
 
 import java.util.*;
 
+/**
+ * The main GridPlayer class containing the logic to play a game
+ */
 public class GridPlayer implements StateObserver {
 
     private int height;

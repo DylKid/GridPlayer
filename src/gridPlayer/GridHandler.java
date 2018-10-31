@@ -1,5 +1,8 @@
 package gridPlayer;
 
+/**
+ * Implement this interface to allow the GridPlayer to interact with your game
+ */
 public interface GridHandler {
 
     public void moveUp();

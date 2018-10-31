@@ -1,5 +1,8 @@
 package gridPlayer;
 
+/**
+ * A simple implementation of Location
+ */
 public class Position implements Location{
 
     private int x;

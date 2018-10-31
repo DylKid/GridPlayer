@@ -2,6 +2,9 @@ package gridPlayer;
 
 import java.util.*;
 
+/**
+ * A representation of a Graph data structure for the Grid Player
+ */
 public class Graph {
 
     private Map<Position, List<Position>> adj;
