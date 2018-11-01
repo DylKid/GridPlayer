@@ -7,20 +7,28 @@ import java.util.*;
  */
 public class GridPlayer implements StateObserver {
 
+    //Height of grid
     private int height;
+    //width of grid
     private int width;
     private GridHandler gridHandler;
     private StateHandler stateHandler;
     private SearchEnum search;
+    //Counter variable, used for go nuts
     private int count;
     private int successes;
     private int neededSucceses;
     private Graph g;
     private Location currentGoal;
+    //Current position of player (x)
     private int currX;
     private int currY;
+
+    //Whether the search has been setup. Set to true to reinitialize setup for BFS
     private boolean setup = false;
+    //Index of BFS search reached
     private int bfsIndex = 0;
+    //The current BFS path
     private List<Location> currBFSPath;
 
     public GridPlayer(GridHandler gridHandler, StateHandler stateHandler){
@@ -33,11 +41,7 @@ public class GridPlayer implements StateObserver {
         search = SearchEnum.NONE;
     }
 
-    public void blindlySearchUntil(int successes) {
-        this.neededSucceses = successes;
-        search = SearchEnum.BLIND;
-    }
-
+    //Sets the search, and performs that search until a number of successes is reached
     public void setsearchUntil(String name, int successes){
         if(name.equals("blind")){
             search = SearchEnum.BLIND;
@@ -49,6 +53,7 @@ public class GridPlayer implements StateObserver {
             sleep(80);
         }
     }
+
 
     public List<Position> getPathTo(int x, int y){
         int xCount = currX;
@@ -83,7 +88,6 @@ public class GridPlayer implements StateObserver {
         }
     }
 
-
     @Override
     public void runNotify() {
         System.out.println("Run notify");
@@ -93,7 +97,7 @@ public class GridPlayer implements StateObserver {
             case BFS:
                 runBFS();
             case NONE:
-                break;
+                goNuts();
         }
     }
 
@@ -105,6 +109,7 @@ public class GridPlayer implements StateObserver {
         }
     }
 
+    //A blind search that simply moves toward the goal blindly
     private void blindSearch(){
         currentGoal = stateHandler.getCurrentGoal();
         if(currentGoal != null) {
@@ -114,16 +119,7 @@ public class GridPlayer implements StateObserver {
         }
     }
 
-
-    public void bfs(Position start, Position end){
-        Queue<Position> q = new LinkedList();
-        q.add(start);
-        while(!q.isEmpty()){
-
-        }
-    }
-
-
+    //Moves toward the location specified
     private void moveToward(Location moveTo){
         if(moveTo.getX() > currX) {
             gridHandler.moveRight();
@@ -136,6 +132,7 @@ public class GridPlayer implements StateObserver {
         }
     }
 
+    //Randomly move around -- used for testing
     public void goNuts(){
                 switch(count%4){
             case 0:
@@ -169,6 +166,7 @@ public class GridPlayer implements StateObserver {
         }
     }
 
+    //Utility for adding to the search graph
     public  <T extends Location>  void addAdjLocations(Location pos1, List<T> adjPosList){
         Position pos = new Position(pos1.getX(), pos1.getY());
         List<Location> posList = new ArrayList();
